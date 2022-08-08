@@ -138,7 +138,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.urls = []
 
-
         def extractFormats(obj):
             lst = []
             try:
@@ -155,7 +154,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 # pass
                 print(repr(_ex))
 
-                
         def downloadUrllist(lst):
             for i, url in enumerate(lst):
                 self.setWindowTitle(f'YouTube DownLoader {i+1}/{len(lst)}')                    
@@ -163,10 +161,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 i = self.ui.listFormat.currentIndex()
                 # винести окремим потоком
                 yt.streams[i].download()
-                # yt = None
+            self.urls.clear()
             dlg = QtWidgets.QMessageBox.information(self, 'Done!', 'file(s) was successfully downloaded',
                                                     buttons=QtWidgets.QMessageBox.Close)
-
 
         def onPaste():
             url = self.ui.inputUrl.text()
@@ -184,18 +181,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 extractFormats(yt)
                 self.urls.append(url)
 
-
         def onStart():
             downloadUrllist(self.urls)
-
 
         def onOpen():
             subprocess.Popen(r'explorer "{dir}"'.format(dir=os.path.dirname(sys.argv[0]).replace('/', '\\')))
 
-
         def onComplete(stream, file_path):
             self.ui.progressBar.setValue(0)
-
 
         def onProgress(stream, chunk, bytes_remaining):
             size = stream.filesize
