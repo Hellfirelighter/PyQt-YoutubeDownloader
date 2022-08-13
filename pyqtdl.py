@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication
 # pip install git+https://github.com/pytube/pytube
 from pytube import YouTube, Channel, Playlist
@@ -207,6 +207,7 @@ def main():
     app.setStyleSheet(qss)
 
     application = ApplicationWindow()
+    application.setWindowIcon(QtGui.QIcon('mainicon.ico'))
     application.setWindowTitle("YouTube DownLoader")
 
     application.show()
